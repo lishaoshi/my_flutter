@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_flutter/pages/login/index.dart' show Login;
+import 'package:my_flutter/pages/home/index.dart' as lib;
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
       title: '岛上码农1',
       theme: ThemeData(
           backgroundColor: const Color(0xFFFFFFFF), primarySwatch: Colors.blue),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(
+        title: 'hello flutter',
+      ),
       routes: {'/login': (context) => const Login()},
     );
   }
