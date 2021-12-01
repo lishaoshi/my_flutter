@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '岛上码农',
+      title: '岛上码农1',
       theme: ThemeData(
           backgroundColor: const Color(0xFFFFFFFF), primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -31,15 +31,25 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  int _index = 0;
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key, this.title = 'home'}) : super(key: key);
+  final String title;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(title),
+    );
   }
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _index = 0;
+  final List<Widget> _homePages = [
+    const HomePage(title: 'home1'),
+    const HomePage(title: 'lss'),
+    const HomePage(title: 'red')
+  ];
 
   void _setIndex(index) {
     setState(() {
@@ -53,19 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
             title: Text(widget.title),
             systemOverlayStyle: SystemUiOverlayStyle.light),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times hot1:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          ),
+        body: IndexedStack(
+          index: _index,
+          children: _homePages,
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           type: BottomNavigationBarType.fixed,
           onTap: (index) {
             _setIndex(index);
-            Navigator.pushNamed(context, '/login');
+            // Navigator.pushNamed(context, '/login');
           },
         ));
   }
