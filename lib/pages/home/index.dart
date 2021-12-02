@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter/mock/home.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -11,12 +15,17 @@ class _HomePageState extends State<HomePage> {
   int pageNo = 1;
   int pageSize = 10;
   List<Map<String, Object>> list = [];
-  _HomePageState() : super() {
+  _HomePageState() : super();
+
+  @override
+  void initState() {
+    super.initState();
     _getList();
   }
 
   void _getList() async {
-    List<Map<String, Object>> data = await HomeMock.list(pageNo: 1, size: 10);
+    List<Map<String, Object>> data =
+        await HomeMock.list(pageNo: pageNo, size: pageSize);
     setState(() {
       if (pageNo > 1) {
         list.addAll(data);
@@ -26,33 +35,96 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _refresh() {
+  Future<void> _onRefresh() async {
     setState(() {
       pageNo = 1;
     });
+    _getList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (content, index) =>
-              ListItem(url: list[index]['imgUrl']?.toString() ?? '')),
+      body: EasyRefresh.custom(
+        header: MaterialHeader(),
+        footer: MaterialFooter(),
+        onRefresh: _onRefresh,
+        onLoad: () async {
+          setState(() {
+            pageNo++;
+          });
+          print(pageNo);
+          await Future.delayed(Duration(seconds: 2), () {
+            if (mounted) {
+              _getList();
+            }
+          });
+        },
+        slivers: [
+          SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+            return ListItem(
+              url: list[index]['imageUrl'].toString(),
+              title: list[index]['title']?.toString(),
+            );
+          }, childCount: list.length))
+        ],
+      ),
     );
   }
 }
 
 class ListItem extends StatelessWidget {
   final String url;
-  const ListItem({Key? key, required this.url}) : super(key: key);
+  final String? title;
+  const ListItem({Key? key, required this.url, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Row(children: <Widget>[imageBox()]);
+    return Container(
+      margin: const EdgeInsets.all(10),
+      height: 100,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          imageBox(),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [titleView(context), _viewCount()],
+          ))
+        ],
+      ),
+    );
   }
 
   Widget imageBox() => SizedBox(
         height: 100,
-        child: Text(url),
+        width: 150,
+        child: Image.network(url),
+      );
+
+  Widget titleView(context) => Container(
+        margin: const EdgeInsets.only(left: 10),
+        child: Text('$title', style: TextStyle(color: Colors.black54)),
+      );
+  Widget _viewCount() => Container(
+        margin: EdgeInsets.only(left: 10),
+        child: Row(
+          children: const <Widget>[
+            Icon(
+              Icons.remove_red_eye_outlined,
+              size: 14.0,
+              color: Colors.grey,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'hello  this is ocunt',
+              style: TextStyle(color: Colors.grey, fontSize: 14.0),
+            ),
+          ],
+        ),
       );
 }

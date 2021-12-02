@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '岛上码农1',
       theme: ThemeData(
-          backgroundColor: const Color(0xFFFFFFFF), primarySwatch: Colors.blue),
+          fontFamily: 'Georgia',
+          backgroundColor: const Color(0xFFFFFFFF),
+          primarySwatch: Colors.blue),
       home: const MyHomePage(
         title: 'hello flutter',
       ),
@@ -49,9 +51,9 @@ class HomePage extends StatelessWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _index = 0;
   final List<Widget> _homePages = [
-    const HomePage(title: 'home1'),
+    const lib.HomePage(),
     const HomePage(title: 'lss'),
-    const HomePage(title: 'red')
+    const HomePage(title: 'red1')
   ];
 
   void _setIndex(index) {
