@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_easyrefresh: ^2.2.1
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
   assets:
     - assets/home.png
     - assets/home-select.png
+    - assets/load-error.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

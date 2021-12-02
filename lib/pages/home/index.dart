@@ -3,6 +3,7 @@ import 'package:my_flutter/mock/home.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,7 +54,6 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             pageNo++;
           });
-          print(pageNo);
           await Future.delayed(Duration(seconds: 2), () {
             if (mounted) {
               _getList();
@@ -101,12 +101,16 @@ class ListItem extends StatelessWidget {
   Widget imageBox() => SizedBox(
         height: 100,
         width: 150,
-        child: Image.network(url),
+        child: CachedNetworkImage(
+          imageUrl: url,
+          fadeInDuration: Duration(seconds: 5),
+          placeholder: (content, url) => Image.asset('assets/load-error.png'),
+        ),
       );
 
   Widget titleView(context) => Container(
         margin: const EdgeInsets.only(left: 10),
-        child: Text('$title', style: TextStyle(color: Colors.black54)),
+        child: Text('$title', style: const TextStyle(color: Colors.black54)),
       );
   Widget _viewCount() => Container(
         margin: EdgeInsets.only(left: 10),
