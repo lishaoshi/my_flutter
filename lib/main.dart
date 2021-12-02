@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_flutter/pages/login/index.dart' show Login;
 import 'package:my_flutter/pages/home/index.dart' as lib;
+import 'pages/user-info/index.dart';
+import 'pages/infomation/index.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,11 +51,11 @@ class HomePage extends StatelessWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _index = 0;
+  int _index = 1;
   final List<Widget> _homePages = [
     const lib.HomePage(),
-    const HomePage(title: 'lss'),
-    const HomePage(title: 'red1')
+    const Infomation(),
+    const UserInfo()
   ];
 
   void _setIndex(index) {
@@ -99,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 28,
                 )),
             BottomNavigationBarItem(
-                label: 'home',
+                label: '个人信息',
                 icon: Image.asset(
                   'assets/home.png',
                   width: 32,

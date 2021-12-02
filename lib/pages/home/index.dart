@@ -103,7 +103,7 @@ class ListItem extends StatelessWidget {
         width: 150,
         child: CachedNetworkImage(
           imageUrl: url,
-          fadeInDuration: Duration(seconds: 5),
+          fadeInDuration: const Duration(seconds: 5),
           placeholder: (content, url) => Image.asset('assets/load-error.png'),
         ),
       );
@@ -113,7 +113,7 @@ class ListItem extends StatelessWidget {
         child: Text('$title', style: const TextStyle(color: Colors.black54)),
       );
   Widget _viewCount() => Container(
-        margin: EdgeInsets.only(left: 10),
+        margin: const EdgeInsets.only(left: 10),
         child: Row(
           children: const <Widget>[
             Icon(
