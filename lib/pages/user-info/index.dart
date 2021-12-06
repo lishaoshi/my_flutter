@@ -38,7 +38,7 @@ class UserInfo extends StatelessWidget {
                   '收付款'),
               iconMenu(
                   const Icon(
-                    Icons.wallpaper_outlined,
+                    Icons.account_balance_wallet_outlined,
                     color: Colors.white,
                   ),
                   '钱包',
@@ -85,7 +85,7 @@ Widget cartItem(BuildContext context, String title) {
   return Container(
     margin: EdgeInsets.all(margin),
     padding: EdgeInsets.all(padding),
-    decoration: const BoxDecoration(color: Colors.black),
+    decoration: const BoxDecoration(color: Colors.white),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -96,7 +96,7 @@ Widget cartItem(BuildContext context, String title) {
         GridView.count(
             crossAxisCount: 3, //设置以下两个参数，禁止GridView的滚动，防止与 ListView 冲突
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               iconMenu(const Icon(Icons.access_time_outlined), '信用卡还款'),
               iconMenu(

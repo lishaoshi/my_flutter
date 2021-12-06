@@ -4,6 +4,8 @@ import 'package:my_flutter/pages/login/index.dart' show Login;
 import 'package:my_flutter/pages/home/index.dart' as lib;
 import 'pages/user-info/index.dart';
 import 'pages/infomation/index.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'state/count/index.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,17 +17,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '岛上码农1',
-      theme: ThemeData(
-          fontFamily: 'Georgia',
-          backgroundColor: const Color(0xFFFFFFFF),
-          primarySwatch: Colors.blue),
-      home: const MyHomePage(
-        title: 'hello flutter',
-      ),
-      routes: {'/login': (context) => const Login()},
-    );
+    return BlocProvider(
+        create: (_) => CounterBloc(5),
+        child: MaterialApp(
+          title: '岛上码农1',
+          theme: ThemeData(
+              fontFamily: 'Georgia',
+              backgroundColor: const Color(0xFFFFFFFF),
+              primarySwatch: Colors.blue),
+          home: const MyHomePage(
+            title: 'hello flutter',
+          ),
+          routes: {'/login': (context) => const Login()},
+        ));
   }
 }
 
@@ -52,6 +56,7 @@ class HomePage extends StatelessWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _index = 1;
+  CounterBloc counterBloc = CounterBloc(10);
   final List<Widget> _homePages = [
     const lib.HomePage(),
     const Infomation(),
@@ -70,10 +75,21 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
             title: Text(widget.title),
             systemOverlayStyle: SystemUiOverlayStyle.light),
-        body: IndexedStack(
-          index: _index,
-          children: _homePages,
-        ),
+        body: BlocBuilder<CounterBloc, int>(
+            bloc: counterBloc,
+            builder: (context, state) => Center(
+                  child: Column(
+                    children: [
+                      Text('$state'),
+                      TextButton(
+                          onPressed: () {
+                            counterBloc.add(IncrementEvent());
+                            IncrementEvent();
+                          },
+                          child: Text('增加'))
+                    ],
+                  ),
+                )),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
