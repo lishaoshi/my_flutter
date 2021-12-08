@@ -19,13 +19,14 @@ class FileManege {
 // 写入文件
   Future<File> writeCounter(UserInfoState state) async {
     final file = await _localFile;
-    var info = jsonEncode(state);
+    print(state.toJson());
+    var info = json.encode(state.toJson());
     // Write the file
     return file.writeAsString('$info');
   }
 
 // 读取文件
-  Future<Map<String, dynamic>> readCounter() async {
+  Future<Map<String, dynamic>> readUserInfo() async {
     try {
       final file = await _localFile;
 

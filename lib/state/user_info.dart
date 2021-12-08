@@ -5,6 +5,9 @@ class UserInfoEvent {}
 class UserInfoState {
   final String? name;
   UserInfoState({this.name});
+  Map<String, dynamic> toJson() {
+    return {"name": name};
+  }
 }
 
 class UserInfoChange extends UserInfoEvent {
