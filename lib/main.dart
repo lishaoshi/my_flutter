@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:my_flutter/state/user_info.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'state/count/index.dart';
 import 'routers/fluro.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +31,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: const Color(0xFFFFFFFF),
               primarySwatch: Colors.blue),
           onGenerateRoute: RouterManage.router!.generator,
+          builder: EasyLoading.init(),
         ));
   }
 }

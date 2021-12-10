@@ -6,6 +6,7 @@ import '../infomation/index.dart';
 import 'package:flutter/services.dart';
 import 'package:my_flutter/pages/home/index.dart' as lib;
 import 'package:my_flutter/state/user_info.dart';
+import '../animation/index.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -17,11 +18,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _index = 1;
+  int _index = 3;
   final List<Widget> _homePages = [
     const lib.HomePage(),
     const Infomation(),
-    const UserInfo()
+    const UserInfo(),
+    const MyAnimate()
   ];
 
   void _setIndex(index) {
@@ -69,6 +71,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
               BottomNavigationBarItem(
                   label: '个人信息',
+                  icon: Image.asset(
+                    'assets/home.png',
+                    width: 32,
+                    height: 28,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/home-select.png',
+                    width: 32,
+                    height: 28,
+                  )),
+              BottomNavigationBarItem(
+                  label: '动画',
                   icon: Image.asset(
                     'assets/home.png',
                     width: 32,

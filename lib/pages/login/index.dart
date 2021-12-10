@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter/state/user_info.dart';
 import 'package:my_flutter/routers/fluro.dart';
 import 'package:my_flutter/utils/path_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
