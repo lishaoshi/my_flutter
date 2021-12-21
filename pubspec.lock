@@ -92,6 +92,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  curl_logger_dio_interceptor:
+    dependency: "direct main"
+    description:
+      name: curl_logger_dio_interceptor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.4"
   fake_async:
     dependency: transitive
     description:
