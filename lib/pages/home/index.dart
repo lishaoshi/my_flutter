@@ -4,6 +4,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'widgets/banner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -61,6 +62,9 @@ class _HomePageState extends State<HomePage> {
           });
         },
         slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 140, child: HomeBanner()),
+          ),
           SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
             return ListItem(

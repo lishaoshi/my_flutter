@@ -5,8 +5,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'love_animation.dart';
 import 'windmill_indicator.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:my_flutter/netWork/dio.dart';
+import 'package:my_flutter/netWork/dio_v2.dart';
 import 'package:dio/dio.dart';
+import 'package:my_flutter/widgets/FutreBuilder/index.dart';
 
 class MyAnimate extends StatefulWidget {
   const MyAnimate({Key? key}) : super(key: key);
@@ -17,11 +18,6 @@ class MyAnimate extends StatefulWidget {
 
 class _MyAnimationState extends State<MyAnimate> {
   final String txtKit = 'hello flutter';
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +36,17 @@ class _MyAnimationState extends State<MyAnimate> {
             textStyle: const TextStyle(
                 color: Color.fromRGBO(164, 66, 245, 1), fontSize: 30)),
       ], isRepeatingAnimation: true, repeatForever: true),
-      LoveAnimation(),
-      WindmillIndicator(),
+      const LoveAnimation(),
+      const WindmillIndicator(),
       ElevatedButton(
           onPressed: () async {
-            try {
-              await http.dio.get('/login');
-            } on DioError catch (err) {
-              log('error111: ${err.error}');
-            }
+            var data = await http.post(
+                '/openapi/music/basic/user/oauth2/qrcodekey/get/v2',
+                data: {"type": 2});
+            log('$data');
           },
-          child: const Text('dio'))
+          child: const Text('dio')),
+      // AppFutrueBuilder(child: Text('futurn donw'), future: http.get('/login'))
     ]);
   }
 }

@@ -9,6 +9,21 @@ void main() {
   runApp(const MyApp());
 }
 
+class PrimarySwatch extends MaterialColor {
+  const PrimarySwatch()
+      : super(0xFFF44336, const <int, Color>{
+          50: Color(0xFFFFEBEE),
+          100: Color(0xFFFFCDD2),
+          200: Color(0xFFEF9A9A),
+          300: Color(0xFFE57373),
+          400: Color(0xFFEF5350),
+          500: Color(0xFFF44336),
+          600: Color(0xFFE53935),
+          700: Color(0xFFD32F2F),
+          800: Color(0xFFC62828),
+        });
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +44,11 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               fontFamily: 'Georgia',
               backgroundColor: const Color(0xFFFFFFFF),
-              primarySwatch: Colors.blue),
+              primaryColor: Colors.red,
+              appBarTheme: const AppBarTheme(
+                  backgroundColor: Color(0xFFFFFFFF),
+                  foregroundColor: Colors.black),
+              primarySwatch: const PrimarySwatch()),
           onGenerateRoute: RouterManage.router!.generator,
           builder: EasyLoading.init(),
         ));

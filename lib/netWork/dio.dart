@@ -29,7 +29,7 @@ class HttpUtil {
         receiveTimeout: 5 * 1000));
     (_dio.transformer as DefaultTransformer).jsonDecodeCallback = _parseJson;
     _dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
-    _dio.interceptors.add(AppInterceptor());
+    // _dio.interceptors.add(AppInterceptor());
     _dio.interceptors.add(ErrorInterceptor());
   }
 

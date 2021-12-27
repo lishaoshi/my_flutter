@@ -44,10 +44,10 @@ class AppException implements Exception {
           case 505:
             return UnauthorisedException("不支持HTTP协议请求", code);
           default:
-            return AppException('未知异常', -1);
+            return AppException('未知异常', code);
         }
       default:
-        return AppException('未知异常', -1);
+        return AppException('未知异常', 600);
     }
   }
 }

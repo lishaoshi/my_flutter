@@ -34,6 +34,12 @@ class _LoveAnimation extends State<LoveAnimation>
     }
   }
 
+  @override
+  dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   animationToggle() {
     if (!controller.isAnimating) {
       if (controller.status == AnimationStatus.reverse) {
