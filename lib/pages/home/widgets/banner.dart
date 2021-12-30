@@ -16,9 +16,11 @@ class _HomeBannerState extends State<HomeBanner> {
 
   getBanners() async {
     BannerModule bannerModule = await HomeApi.getBanner();
-    setState(() {
-      banners = bannerModule.banners;
-    });
+    if (mounted) {
+      setState(() {
+        banners = bannerModule.banners;
+      });
+    }
   }
 
   @override
@@ -32,31 +34,31 @@ class _HomeBannerState extends State<HomeBanner> {
     return Swiper(
         itemCount: banners.length,
         key: UniqueKey(),
-        control: const SwiperControl(size: 0),
+        autoplay: true,
+        duration: 500,
         itemBuilder: (context, index) {
           BannerModuleItem item = banners[index];
-          List<Widget> stackWidgets = [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  item.pic,
-                )),
-          ];
-          if (item.typeTitle != null) {
-            String title = item.typeTitle!;
-            stackWidgets.add(TitleType(title));
-          }
           return Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.02),
-            color: Colors.yellow,
-            // decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(16),
-            //     image: DecorationImage(image: NetworkImage(item.pic))),
-            child: Stack(
-              children: stackWidgets,
-            ),
-          );
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.03),
+              child: Container(
+                alignment: Alignment.center,
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          item.pic,
+                        )),
+                    item.typeTitle != null
+                        ? TitleType(
+                            item.typeTitle!,
+                            color: item.titleColor,
+                          )
+                        : Container()
+                  ],
+                ),
+              ));
         });
   }
 }

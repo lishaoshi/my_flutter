@@ -1,14 +1,28 @@
+import 'package:flutter/material.dart';
+
 class BannerModuleItem {
   final String pic;
   final int id;
-  final String? titleColor;
+  late final Color? titleColor;
   final String? typeTitle;
 
-  BannerModuleItem(this.id, this.pic, {this.titleColor, this.typeTitle});
+  BannerModuleItem(this.id, this.pic, {String? titleBgColor, this.typeTitle}) {
+    if (titleBgColor != null) {
+      switch (titleBgColor) {
+        case 'red':
+          titleColor = Colors.red;
+          break;
+        case 'blue':
+          titleColor = Colors.blue;
+          break;
+        default:
+      }
+    }
+  }
 
   factory BannerModuleItem.fromJosn(dynamic json) {
     return BannerModuleItem(json['targetId'], json['pic'],
-        titleColor: json['titleColor'], typeTitle: json['typeTitle']);
+        titleBgColor: json['titleColor'], typeTitle: json['typeTitle']);
   }
 }
 
