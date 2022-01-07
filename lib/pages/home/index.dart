@@ -5,9 +5,11 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'widgets/banner.dart';
+import 'widgets/recommend.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final PageController pageController;
+  HomePage({Key? key, required this.pageController}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -64,6 +66,12 @@ class _HomePageState extends State<HomePage> {
         slivers: [
           const SliverToBoxAdapter(
             child: SizedBox(height: 140, child: HomeBanner()),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 60,
+              child: HomeRecommend(pageController: widget.pageController),
+            ),
           ),
           SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {

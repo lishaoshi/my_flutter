@@ -6,6 +6,10 @@ class MusicAppbar {
     titleSpacing: 0,
     shadowColor: Colors.transparent,
     title: const HomeAppBar(),
-    actions: [IconButton(onPressed: () {}, icon: Icon(Icons.menu))],
+    leadingWidth: 48,
+    leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+    actions: [
+      IconButton(onPressed: () {}, icon: const Icon(Icons.mic_rounded))
+    ],
   );
 }

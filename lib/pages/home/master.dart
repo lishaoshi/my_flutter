@@ -4,7 +4,7 @@ import 'package:my_flutter/state/user_info.dart';
 import '../user-info/index.dart';
 import '../infomation/index.dart';
 // import 'package:flutter/services.dart';
-import 'index.dart' as lib;
+import 'index.dart';
 import '../animation/index.dart';
 import 'package:my_flutter/widgets/app_bar/index.dart';
 
@@ -24,26 +24,27 @@ class PageFragment {
 
 class Master extends StatefulWidget {
   final List<PageFragment> pageFragments;
-  const Master({Key? key, required this.pageFragments}) : super(key: key);
+  final PageController pageController;
+  const Master(
+      {Key? key, required this.pageFragments, required this.pageController})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() => _MasterState();
 }
 
 class _MasterState extends State<Master> {
   int _index = 0;
-  late PageController pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    pageController = PageController();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.pageController = PageController();
+  // }
 
   void _setIndex(index, [bool? needJump]) {
     setState(() {
       _index = index;
       if (needJump ?? false) {
-        pageController.jumpToPage(
+        widget.pageController.jumpToPage(
           index,
         );
       }
@@ -53,14 +54,14 @@ class _MasterState extends State<Master> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Icon(Icons.double_arrow_sharp),
+      drawer: const Icon(Icons.double_arrow_sharp),
       appBar: widget.pageFragments[_index].appBar ??
           AppBar(
-            title: Text('default app bar'),
+            title: const Text('default app bar'),
           ),
       body: PageView(
         onPageChanged: _setIndex,
-        controller: pageController,
+        controller: widget.pageController,
         children: widget.pageFragments.map((p) => p.child(context)).toList(),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -76,7 +77,7 @@ class _MasterState extends State<Master> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -85,13 +86,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PageController pageController;
+  _MyHomePageState() : pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserInfoBloc, UserInfoState>(builder: (context, state) {
       return Master(
         pageFragments: [
           PageFragment(
-              child: (context) => const lib.HomePage(),
+              child: (context) => HomePage(pageController: pageController),
               icon: const Icon(Icons.emoji_emotions),
               appBar: MusicAppbar.homeAppBar,
               label: '文章列表'),
@@ -108,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.animation),
               label: '动画')
         ],
+        pageController: pageController,
       );
     });
   }

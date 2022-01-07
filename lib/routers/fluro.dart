@@ -30,7 +30,7 @@ class RouterManage {
 
   static var homeHandler =
       Handler(handlerFunc: (context, Map<String, dynamic> params) {
-    return const MyHomePage(
+    return MyHomePage(
       title: 'hello flutter',
     );
   });
