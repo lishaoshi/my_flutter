@@ -34,12 +34,6 @@ class Master extends StatefulWidget {
 
 class _MasterState extends State<Master> {
   int _index = 0;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   widget.pageController = PageController();
-  // }
-
   void _setIndex(index, [bool? needJump]) {
     setState(() {
       _index = index;
@@ -77,7 +71,7 @@ class _MasterState extends State<Master> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 

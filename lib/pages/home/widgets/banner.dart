@@ -5,39 +5,30 @@ import '../modules/banner.dart';
 import 'banner_title_type.dart';
 
 class HomeBanner extends StatefulWidget {
-  const HomeBanner({Key? key}) : super(key: key);
+  late final List<BannerModuleItem> banners;
+  HomeBanner({Key? key, required List<dynamic> banners}) : super(key: key) {
+    this.banners = banners.map((e) => BannerModuleItem.fromJosn(e)).toList();
+  }
 
   @override
   State<StatefulWidget> createState() => _HomeBannerState();
 }
 
 class _HomeBannerState extends State<HomeBanner> {
-  List<BannerModuleItem> banners = [];
-
-  getBanners() async {
-    BannerModule bannerModule = await HomeApi.getBanner();
-    if (mounted) {
-      setState(() {
-        banners = bannerModule.banners;
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    getBanners();
   }
 
   @override
   Widget build(BuildContext context) {
     return Swiper(
-        itemCount: banners.length,
+        itemCount: widget.banners.length,
         key: UniqueKey(),
         autoplay: true,
         duration: 500,
         itemBuilder: (context, index) {
-          BannerModuleItem item = banners[index];
+          BannerModuleItem item = widget.banners[index];
           return Container(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.03),

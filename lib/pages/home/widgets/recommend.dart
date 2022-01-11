@@ -19,9 +19,11 @@ class _HomeRecommentd extends State<HomeRecommend> {
 
   Future<void> getData() async {
     HomeRecommendModule result = await HomeApi.getHomeRecommend();
-    setState(() {
-      recommends = result.data;
-    });
+    if (mounted) {
+      setState(() {
+        recommends = result.data;
+      });
+    }
   }
 
   DragStartDetails? dragStartDetails;
@@ -34,7 +36,13 @@ class _HomeRecommentd extends State<HomeRecommend> {
   }
 
   bool _onNotification(ScrollNotification notification) {
-    print(notification.metrics.atEdge);
+    if (notification is ScrollStartNotification) {
+      dragStartDetails = notification.dragDetails!;
+    }
+    if (notification is UserScrollNotification &&
+        controller.offset == notification.metrics.maxScrollExtent) {
+      widget.pageController.position.drag(dragStartDetails!, () {});
+    }
     return true;
   }
 
