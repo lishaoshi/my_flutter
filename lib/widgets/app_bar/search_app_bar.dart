@@ -14,6 +14,7 @@ class _SearchAppBar extends State<SearchAppBar> {
 
   @override
   void initState() {
+    super.initState();
     focusNode = FocusNode();
   }
 
