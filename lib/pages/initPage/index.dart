@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter/routers/fluro.dart';
-import 'package:my_flutter/state/user_info.dart';
+import 'package:my_flutter/states/user_info.dart';
 import 'package:my_flutter/utils/path_provider.dart';
 
 MaterialPage initPage =

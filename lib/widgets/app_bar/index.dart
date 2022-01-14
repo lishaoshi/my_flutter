@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_app_bar.dart';
+import 'search_app_bar.dart';
 
 class MusicAppbar {
   static final AppBar homeAppBar = AppBar(
@@ -11,5 +12,10 @@ class MusicAppbar {
     actions: [
       IconButton(onPressed: () {}, icon: const Icon(Icons.mic_rounded))
     ],
+  );
+
+  static final AppBar searchAppBar = AppBar(
+    shadowColor: Colors.transparent,
+    title: SearchAppBar(),
   );
 }

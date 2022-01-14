@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:my_flutter/state/user_info.dart';
+import 'package:my_flutter/states/user_info.dart';
 
 class FileManege {
   Future<String> get localPath async {
     final directory = await getApplicationDocumentsDirectory();
-
     return directory.path;
   }
 

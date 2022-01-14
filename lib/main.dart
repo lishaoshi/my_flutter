@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter/state/user_info.dart';
+import 'package:flutter/services.dart';
+import 'package:my_flutter/states/user_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'state/count/index.dart';
+import 'states/count/index.dart';
 import 'routers/fluro.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const MyApp());
+  SystemUiOverlayStyle systemUiOverlayStyle =
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
 class PrimarySwatch extends MaterialColor {

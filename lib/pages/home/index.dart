@@ -62,15 +62,19 @@ class _HomePageState extends State<HomePage>
     if (mounted) {
       setState(() {
         blocks = result.data['blocks'];
-        blocks!.insert(1, {'showType': 'BALLLIST'});
+        blocks?.insert(1, {'showType': 'BALLLIST'});
       });
     }
     // BannerModule banners = result
   }
 
+  List showTypes = ['BANNER', 'BALLLIST', 'HOMEPAGE_SLIDE_PLAYLIST'];
+
   List<Widget> _renderBlocks() {
     if (blocks != null) {
-      return blocks!.map((element) {
+      return blocks!
+          .where((element) => showTypes.contains(element['showType']))
+          .map((element) {
         if (element['showType'] == 'BANNER') {
           return AppSliverToBoxAdapter(
               height: 140,
@@ -80,12 +84,14 @@ class _HomePageState extends State<HomePage>
               height: 60,
               child: HomeRecommend(pageController: widget.pageController));
         } else if (element['showType'] == 'HOMEPAGE_SLIDE_PLAYLIST') {
-          return const AppSliverToBoxAdapter(
-            height: 200,
-            child: PlayList(),
+          return AppSliverToBoxAdapter(
+            height: 170,
+            child: PlayList(
+              data: element,
+            ),
           );
         } else {
-          return const AppSliverToBoxAdapter(height: 10, child: Text('11'));
+          return AppSliverToBoxAdapter(height: 10, child: Container());
         }
       }).toList();
     } else {
@@ -95,45 +101,23 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: EasyRefresh.custom(
         header: MaterialHeader(),
         footer: MaterialFooter(),
         onRefresh: _onRefresh,
         onLoad: () async {
-          setState(() {
-            pageNo++;
-          });
-          await Future.delayed(Duration(seconds: 2), () {
-            if (mounted) {
-              _getList();
-            }
-          });
+          //   setState(() {
+          //     pageNo++;
+          //   });
+          //   await Future.delayed(const Duration(seconds: 2), () {
+          //     if (mounted) {
+          //       _getList();
+          //     }
+          //   });
         },
         slivers: _renderBlocks(),
-        // slivers: [
-        //   // const SliverToBoxAdapter(
-        //   //   child: SizedBox(height: 140, child: HomeBanner()),
-        //   // ),
-        //   // SliverToBoxAdapter(
-        //   //   child: SizedBox(
-        //   //     height: 60,
-        //   //     child: HomeRecommend(pageController: widget.pageController),
-        //   //   ),
-        //   // ),
-        //   // const SliverToBoxAdapter(
-        //   //   child: SizedBox(
-        //   //     height: 200,
-        //   //     child: PlayList(),
-        //   //   ),
-        //   // ),
-        //   // SliverList(
-        //   //     delegate: SliverChildBuilderDelegate((context, index) {
-        //   //   return ListItem(
-        //   //     url: list[index]['imageUrl'].toString(),
-        //   //     title: list[index]['title']?.toString(),
-        //   //   );
-        //   // }, childCount: list.length))
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_flutter/state/user_info.dart';
+import 'package:my_flutter/states/user_info.dart';
 import '../user-info/index.dart';
 import '../infomation/index.dart';
 // import 'package:flutter/services.dart';

@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import '../pages/initPage/index.dart';
 import '../pages/login/index.dart';
 import '../pages/home/master.dart';
+import '../pages/search/index.dart';
 
 class RouterManage {
   static String welcomePage = '/';
@@ -30,14 +31,20 @@ class RouterManage {
 
   static var homeHandler =
       Handler(handlerFunc: (context, Map<String, dynamic> params) {
-    return MyHomePage(
+    return const MyHomePage(
       title: 'hello flutter',
     );
+  });
+
+  // 搜索页面
+  static var searchHandler = Handler(handlerFunc: (context, params) {
+    return SearchPage();
   });
 
   static defineRoutes() {
     router!.define(welcomePage, handler: welcomePageHandler);
     router!.define('/login', handler: loginHandler);
     router!.define('/home', handler: homeHandler);
+    router!.define('/search', handler: searchHandler);
   }
 }
